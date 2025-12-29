@@ -1,0 +1,132 @@
+import zipfile
+
+# Save the updated ChainVista HTML with file upload form
+chainvista_html_file = '/mnt/data/ChainVista_Bitcoin_Investment_Website_FileUpload.html'
+with open(chainvista_html_file, 'w') as f:
+    f.write("""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChainVista - Bitcoin Investments</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin:0; padding:0; font-family:'Roboto', sans-serif; }
+  body { background:#f5f6fa; color:#333; line-height:1.6; }
+  a { text-decoration:none; color:inherit; }
+  header { background:#1e1e2f; color:#fff; padding:20px 0; }
+  header nav { display:flex; justify-content:space-between; align-items:center; max-width:1200px; margin:auto; padding:0 20px; }
+  header nav .logo { font-size:1.8em; font-weight:700; color:gold; }
+  header nav ul { list-style:none; display:flex; gap:20px; }
+  header nav ul li:hover { color:gold; }
+  .hero { display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; height:80vh; background:linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://www.cryptocompare.com/media/37746251/bitcoin.png') no-repeat center/cover; color:#fff; }
+  .hero h1 { font-size:3em; margin-bottom:20px; }
+  .hero p { font-size:1.2em; margin-bottom:30px; max-width:600px; }
+  .btn { background:gold; color:#1e1e2f; padding:12px 30px; font-weight:bold; border-radius:5px; transition:0.3s; display:inline-block; text-align:center; }
+  .btn:hover { background:#f1c40f; }
+  section { max-width:1200px; margin:50px auto; padding:0 20px; }
+  section h2 { text-align:center; font-size:2em; margin-bottom:30px; color:#1e1e2f; }
+  .services { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
+  .service-card { background:#fff; padding:20px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1); transition:0.3s; }
+  .service-card:hover { box-shadow:0 6px 15px rgba(0,0,0,0.2); }
+  .service-card h3 { margin-bottom:10px; color:#1e1e2f; }
+  .service-card p { font-size:0.95em; margin-bottom:15px; }
+  .contact-form { background:#fff; padding:30px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1); max-width:600px; margin:auto; }
+  .contact-form input, .contact-form textarea, .contact-form label { width:100%; margin-bottom:10px; }
+  .contact-form input, .contact-form textarea { padding:12px; border:1px solid #ccc; border-radius:5px; }
+  .contact-form button { width:100%; padding:12px; border:none; border-radius:5px; background:gold; color:#1e1e2f; font-weight:bold; cursor:pointer; transition:0.3s; }
+  .contact-form button:hover { background:#f1c40f; }
+  .newsletter { display:flex; flex-direction:column; align-items:center; margin-bottom:30px; }
+  .newsletter input { padding:10px; width:250px; margin-right:10px; border-radius:5px; border:none; }
+  .newsletter button { padding:10px 20px; border-radius:5px; border:none; background:gold; color:#1e1e2f; font-weight:bold; cursor:pointer; }
+  .newsletter button:hover { background:#f1c40f; }
+  footer { background:#1e1e2f; color:#fff; text-align:center; padding:20px 0; margin-top:50px; }
+</style>
+</head>
+<body>
+
+<header>
+<nav>
+  <div class="logo">ChainVista</div>
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+</header>
+
+<section class="hero" id="home">
+  <h1>Invest in Bitcoin with Confidence</h1>
+  <p>Grow your wealth securely and professionally with our Bitcoin investment solutions.</p>
+  <a href="#services" class="btn">View Plans</a>
+</section>
+
+<section id="about">
+  <h2>About ChainVista</h2>
+  <p style="text-align:center; max-width:800px; margin:auto;">ChainVista is a professional Bitcoin investment platform helping clients securely invest and grow their cryptocurrency portfolio with transparent and reliable strategies.</p>
+</section>
+
+<section id="services">
+<h2>Investment Plans</h2>
+<div class="services">
+  <div class="service-card">
+    <h3>Starter Plan</h3>
+    <p>Invest $500-$1,000 and start your Bitcoin journey with low risk and steady growth.</p>
+    <a href="bitcoin:bc1qy0nz75jkam66pzlytaw8hr976tql4jj0v27y5s?amount=0.01" class="btn">Pay 0.01 BTC</a>
+  </div>
+  <div class="service-card">
+    <h3>Growth Plan</h3>
+    <p>Invest $1,000-$5,000 with moderate risk and potential for higher returns.</p>
+    <a href="bitcoin:bc1qy0nz75jkam66pzlytaw8hr976tql4jj0v27y5s?amount=0.02" class="btn">Pay 0.02 BTC</a>
+  </div>
+  <div class="service-card">
+    <h3>Premium Plan</h3>
+    <p>Invest $5,000+ for aggressive growth, dedicated support, and advanced strategies.</p>
+    <a href="bitcoin:bc1qy0nz75jkam66pzlytaw8hr976tql4jj0v27y5s?amount=0.05" class="btn">Pay 0.05 BTC</a>
+  </div>
+</div>
+</section>
+
+<section id="contact">
+<h2>Contact ChainVista</h2>
+<div class="contact-form">
+<form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" enctype="multipart/form-data">
+  <input type="text" name="name" placeholder="Full Name" required>
+  <input type="email" name="email" placeholder="Email Address" required>
+  <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+  
+  <label for="file">Attach a file (optional):</label>
+  <input type="file" name="file" id="file">
+  
+  <button type="submit">Send Message</button>
+</form>
+</div>
+</section>
+
+<section id="newsletter">
+<div class="newsletter">
+<h2>Subscribe for Updates</h2>
+<form action="#" method="post">
+  <input type="email" name="newsletter_email" placeholder="Your Email" required>
+  <button type="submit">Subscribe</button>
+</form>
+</div>
+</section>
+
+<footer>
+&copy; 2025 ChainVista. All rights reserved.
+</footer>
+
+</body>
+</html>
+""")
+
+# Create a ZIP file containing the updated HTML
+zip_file_path = '/mnt/data/ChainVista_Bitcoin_Investment_Website_FileUpload.zip'
+with zipfile.ZipFile(zip_file_path, 'w') as zipf:
+    zipf.write(chainvista_html_file, arcname='index.html')
+
+zip_file_path
